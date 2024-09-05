@@ -3,12 +3,6 @@
 #include "raymath.h"
 #include "vector"
 #include <iostream>
-class Racer {
-public:
-	Vector2 m_pos;
-	float m_progThroughTrack = 0;
-};
-
 struct Collider {
 	Collider(Vector2 max, Vector2 ori, float ang) : m_max(max), m_origin(ori), m_rot(ang) {
 		m_min = Vector2{ 0,0 };
@@ -168,24 +162,67 @@ public:
 
 class Racer {
 public:
-	Racer(Flag* startingLine, int lapCount, float ds, float tol) : m_driveSpeed(ds), m_tolerance(tol), m_lapCount(lapCount) {
+	Racer();
+	Racer(Flag* startingLine, int lapCount, float ds, float tol, std::vector<Flag*>& fv) : m_driveSpeed(ds), m_tolerance(tol), m_lapCount(lapCount) {
 		m_pos = startingLine->coll->m_midPoint;
+		points = fv;
+		storedFlag = fv[1];
+		target = points[1]->coll->m_midPoint;
+		nextTarget = points[2]->coll->m_midPoint;
 	}
 	Vector2 m_pos, m_travelDir;
-	Flag* m_targetFlag;
+	Vector2 m_velo = Vector2{ 0,0 };
+	Vector2 target, nextTarget;
 	float m_tolerance;
 	float m_driveSpeed;
 	int m_lapCount;
+	float m_marchingDist;
+	std::vector<Flag*> points;
+	Flag* storedFlag;
+	int segment;
 
 	void Update(float dt = GetFrameTime()) {
+		Vector2 add = GenerateTargetPoint();
+		add = Vector2Scale(add, (m_driveSpeed * dt));
+		m_pos = Vector2Add(m_pos, add);
+	}
 
-	};
 
-	void ResetTarget() {
+	Vector2 GenerateTargetPoint() {
+
+		if(Vector2Length(Vector2Subtract(target, m_pos)) < m_tolerance){
+			target = nextTarget;
+			nextTarget = storedFlag->m_nextFlag->m_nextFlag->coll->m_midPoint;
+			storedFlag = storedFlag->m_nextFlag;
+		}
+
+		Vector2 midBetweenMeAndTarg = Vector2Subtract(target, m_pos);
+		float distMandT = Vector2Length(midBetweenMeAndTarg);
+		midBetweenMeAndTarg = Vector2Normalize(midBetweenMeAndTarg);
+
+		Vector2 midBetweenMeAndNTarg = Vector2Subtract(nextTarget, m_pos);
+		float distMandnT = Vector2Length(midBetweenMeAndNTarg);
+		midBetweenMeAndNTarg = Vector2Normalize(midBetweenMeAndNTarg);
+		
+
+		midBetweenMeAndTarg = Vector2Scale(midBetweenMeAndTarg, distMandnT / distMandT);
+		midBetweenMeAndNTarg = Vector2Scale(midBetweenMeAndNTarg, distMandT / distMandnT);
+
+		Vector2 moveDir = Vector2Add(midBetweenMeAndNTarg, midBetweenMeAndTarg);
+		moveDir = Vector2Normalize(moveDir);
+
+		return moveDir;
 
 	}
 
-	void Draw();
+
+
+	void Draw() {
+
+		DrawCircle(m_pos.x, m_pos.y, 5, BLACK);
+		DrawCircle(target.x, target.y, 10, RED);
+
+	}
 
 
 };

@@ -63,6 +63,9 @@ int main(int argc, char* argv[])
     bool justSwapped = false;
         system("CLS");
             std::cout << "DRAWING MODE ENABLED" << '\n';
+            Racer* r = nullptr;
+
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -91,10 +94,22 @@ int main(int argc, char* argv[])
             std::cout << "DRAWING MODE ENABLED" << '\n';
             drawingModeEnabled = !drawingModeEnabled;
             justSwapped = !drawingModeEnabled;
+
+            if (!drawingModeEnabled && flags.size() >= 3) {
+                if(r != nullptr) delete r;
+                r = new Racer(flags[0], 3, 150, 20, flags);
+            }
+
         }
 
         if (drawingModeEnabled) {
             if (IsKeyPressed(KEY_C)) {
+                
+                if (r != nullptr) {
+                delete r;
+                r = nullptr;
+
+                }
                 ClearFlags(flags);
             }
 
@@ -223,9 +238,10 @@ int main(int argc, char* argv[])
 
 
             for (Flag* f : flags) {
-                if (f->coll->CheckForEntry(v)) {
+                if (r == nullptr) break;
+                if (f->coll->CheckForEntry(r->m_pos)) {
 
-                    system("CLS");
+                    //system("CLS");
                     if (f->flagIndex == 0) {
                         std::cout << "Lap start!" << '\n';
                         f->m_hasPassed = true;
@@ -270,7 +286,10 @@ int main(int argc, char* argv[])
         }
 
 
-
+        if (r != nullptr) {
+            r->Update();
+            r->Draw();
+        }
 
 
         
