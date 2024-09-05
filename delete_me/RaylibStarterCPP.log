@@ -1,18 +1,17 @@
 ﻿  main.cpp
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(121,49): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(126,43): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(133,89): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(138,89): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(168,106): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(174,72): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(175,41): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(265,138): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(265,103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(265,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(265,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(268,138): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(268,103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(268,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\s230038\Desktop\RacingAI\RaylibStarterCPP\main.cpp(268,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-raylib.lib(core.obj) : warning LNK4099: PDB '' was not found with 'raylib.lib(core.obj)' or at ''; linking object as if no debug info
-  RaylibStarterCPP.vcxproj -> C:\Users\s230038\Desktop\RacingAI\bin\Debug\RaylibStarterCPP_db.exe
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(121,49): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(126,43): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(133,89): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(138,89): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(168,106): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(174,72): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(175,41): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(265,138): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(265,103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(265,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(265,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(268,138): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(268,103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(268,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\s230038\Desktop\COD\RacingAIDemo\RaylibStarterCPP\main.cpp(268,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  RaylibStarterCPP.vcxproj -> C:\Users\s230038\Desktop\COD\RacingAIDemo\bin\Debug\RaylibStarterCPP_db.exe

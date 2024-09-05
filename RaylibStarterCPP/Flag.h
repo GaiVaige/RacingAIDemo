@@ -166,19 +166,26 @@ public:
 
 };
 
-class SubFlag : public Flag {
+class Racer {
 public:
-	SubFlag();
-};
+	Racer(Flag* startingLine, int lapCount, float ds, float tol) : m_driveSpeed(ds), m_tolerance(tol), m_lapCount(lapCount) {
+		m_pos = startingLine->coll->m_midPoint;
+	}
+	Vector2 m_pos, m_travelDir;
+	Flag* m_targetFlag;
+	float m_tolerance;
+	float m_driveSpeed;
+	int m_lapCount;
 
-class MainFlag : public Flag {
-public:
-	MainFlag();
+	void Update(float dt = GetFrameTime()) {
 
-	std::vector<SubFlag*> m_subFlags;
-	MainFlag* m_nextMainFlag;
-};
+	};
 
-class FinishFlag : public Flag {
-	std::vector<Flag*> flags;
+	void ResetTarget() {
+
+	}
+
+	void Draw();
+
+
 };
