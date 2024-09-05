@@ -180,6 +180,7 @@ public:
 	std::vector<Flag*> points;
 	Flag* storedFlag;
 	int segment;
+	bool refreshTarget;
 
 	void Update(float dt = GetFrameTime()) {
 		Vector2 add = GenerateTargetPoint();
@@ -190,28 +191,28 @@ public:
 
 	Vector2 GenerateTargetPoint() {
 
-		if(Vector2Length(Vector2Subtract(target, m_pos)) < m_tolerance){
+		if(refreshTarget){
 			target = nextTarget;
 			nextTarget = storedFlag->m_nextFlag->m_nextFlag->coll->m_midPoint;
 			storedFlag = storedFlag->m_nextFlag;
+			refreshTarget = false;
 		}
 
-		Vector2 midBetweenMeAndTarg = Vector2Subtract(target, m_pos);
-		float distMandT = Vector2Length(midBetweenMeAndTarg);
-		midBetweenMeAndTarg = Vector2Normalize(midBetweenMeAndTarg);
+		Vector2 dirToTarg = Vector2Subtract(target, m_pos);
+		dirToTarg = Vector2Normalize(dirToTarg);
 
-		Vector2 midBetweenMeAndNTarg = Vector2Subtract(nextTarget, m_pos);
-		float distMandnT = Vector2Length(midBetweenMeAndNTarg);
-		midBetweenMeAndNTarg = Vector2Normalize(midBetweenMeAndNTarg);
-		
-
-		midBetweenMeAndTarg = Vector2Scale(midBetweenMeAndTarg, distMandnT / distMandT);
-		midBetweenMeAndNTarg = Vector2Scale(midBetweenMeAndNTarg, distMandT / distMandnT);
-
-		Vector2 moveDir = Vector2Add(midBetweenMeAndNTarg, midBetweenMeAndTarg);
+		Vector2 dirToNextTarg = Vector2Subtract(nextTarget, m_pos);
+		dirToNextTarg = Vector2Normalize(dirToNextTarg);
+		Vector2 moveDir = dirToTarg;
 		moveDir = Vector2Normalize(moveDir);
 
-		return moveDir;
+		float diff = Vector2DotProduct(moveDir, dirToNextTarg);
+		if (diff < .1) diff = .1;
+		if (diff > 1) diff = 1;
+		Vector2 fMoveDir = Vector2Add(Vector2Scale(moveDir, 1 + diff), Vector2Scale(dirToNextTarg, diff));
+		fMoveDir = Vector2Normalize(fMoveDir);
+
+		return fMoveDir;
 
 	}
 
@@ -219,8 +220,7 @@ public:
 
 	void Draw() {
 
-		DrawCircle(m_pos.x, m_pos.y, 5, BLACK);
-		DrawCircle(target.x, target.y, 10, RED);
+		DrawCircle(m_pos.x, m_pos.y, 10, BLACK);
 
 	}
 

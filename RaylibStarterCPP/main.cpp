@@ -91,13 +91,14 @@ int main(int argc, char* argv[])
         
         if (IsKeyPressed(KEY_V)) {
             system("CLS");
-            std::cout << "DRAWING MODE ENABLED" << '\n';
             drawingModeEnabled = !drawingModeEnabled;
+            if(drawingModeEnabled) std::cout << "DRAWING MODE ENABLED" << '\n';
+            else std::cout << "SIM MODE ENABLED" << '\n';
             justSwapped = !drawingModeEnabled;
 
             if (!drawingModeEnabled && flags.size() >= 3) {
                 if(r != nullptr) delete r;
-                r = new Racer(flags[0], 3, 150, 20, flags);
+                r = new Racer(flags[0], 3, 150, 35, flags);
             }
 
         }
@@ -119,6 +120,12 @@ int main(int argc, char* argv[])
 
             if (IsKeyPressed(KEY_W)) {
                 picking = !picking;
+                if (picking) {
+                    std::cout << "PICKING ENABLED" << '\n';
+                }
+                else {
+                    std::cout << "PICKING DISABLED" << '\n';
+                }
             }
 
         }
@@ -227,11 +234,12 @@ int main(int argc, char* argv[])
         }
         else {
             if (justSwapped) {
-                std::cout << "Lap start!" << '\n';
+                //std::cout << "Lap start!" << '\n';
+                flags[0]->m_hasPassed = true;
                 for (int i = 0; i < flags.size(); i++) {
-                    std::cout << "Flag: " << i << " - Status: " << std::boolalpha << flags[i]->m_hasPassed << '\n';
+                    //std::cout << "Flag: " << i << " - Status: " << std::boolalpha << flags[i]->m_hasPassed << '\n';
                 }
-                std::cout << "Lap count: " << lapCounter << '\n';
+                //std::cout << "Lap count: " << lapCounter << '\n';
                 justSwapped = false;
             
             }
@@ -240,12 +248,12 @@ int main(int argc, char* argv[])
             for (Flag* f : flags) {
                 if (r == nullptr) break;
                 if (f->coll->CheckForEntry(r->m_pos)) {
+                    if (r->storedFlag == f) {
+                    r->refreshTarget = true;
 
-                    //system("CLS");
+                    }
                     if (f->flagIndex == 0) {
-                        std::cout << "Lap start!" << '\n';
-                        f->m_hasPassed = true;
-
+                        //std::cout << "Lap start!" << '\n';
                         if (f->m_previousFlag->m_hasPassed) {
                             lapCounter++;
                             for (int i = 1; i < flags.size(); i++)
@@ -257,17 +265,17 @@ int main(int argc, char* argv[])
                     }
                     else {
                         if (f->m_previousFlag->m_hasPassed) {
-                            std::cout << "Passed next flag at " << f->flagIndex << '\n';
+                            //std::cout << "Passed next flag at " << f->flagIndex << '\n';
                             f->m_hasPassed = true;
                         }
                         else {
-                            std::cout << "Flag skipped!!!" << '\n';
+                            //std::cout << "Flag skipped!!!" << '\n';
                         }
                     }
                     for (int i = 0; i < flags.size(); i++) {
-                        std::cout << "Flag: " << i << " - Status: " << std::boolalpha << flags[i]->m_hasPassed << '\n';
+                        //std::cout << "Flag: " << i << " - Status: " << std::boolalpha << flags[i]->m_hasPassed << '\n';
                     }
-                    std::cout << "Lap count: " << lapCounter << '\n';
+                    //std::cout << "Lap count: " << lapCounter << '\n';
                 }
             }
         }
@@ -287,8 +295,11 @@ int main(int argc, char* argv[])
 
 
         if (r != nullptr) {
+            if (!drawingModeEnabled) {
             r->Update();
             r->Draw();
+
+            }
         }
 
 
