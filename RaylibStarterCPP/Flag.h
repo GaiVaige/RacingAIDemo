@@ -185,7 +185,8 @@ public:
 	void Update(float dt = GetFrameTime()) {
 		Vector2 add = GenerateTargetPoint();
 		add = Vector2Scale(add, (m_driveSpeed * dt));
-		m_pos = Vector2Add(m_pos, add);
+		m_velo = Vector2Add(m_velo, add);
+		m_pos = Vector2Add(m_pos, Vector2Scale(m_velo, dt));
 	}
 
 
@@ -206,13 +207,30 @@ public:
 		Vector2 moveDir = dirToTarg;
 		moveDir = Vector2Normalize(moveDir);
 
-		float diff = Vector2DotProduct(moveDir, dirToNextTarg);
-		if (diff < .1) diff = .1;
-		if (diff > 1) diff = 1;
-		Vector2 fMoveDir = Vector2Add(Vector2Scale(moveDir, 1 + diff), Vector2Scale(dirToNextTarg, diff));
+		Vector2 fMoveDir = moveDir;
+		fMoveDir = Vector2Add(fMoveDir, Vector2Scale(dirToNextTarg, 250 / Vector2Length(Vector2Subtract(nextTarget, m_pos))));
 		fMoveDir = Vector2Normalize(fMoveDir);
+		float dist = (Vector2Length(Vector2Subtract(target, m_pos)));
+		if (Vector2Length(m_velo) >= .5 && dist < 150) {
+			Vector2 brakeDir = Vector2Negate(Vector2Normalize(m_velo));
+			float inten = Vector2Length(m_velo);
+			brakeDir = Vector2Scale(brakeDir, (inten * .45)/dist);
+			DrawLine(m_pos.x, m_pos.y, m_pos.x + brakeDir.x * 50, m_pos.y + brakeDir.y * 50, BLUE);
+			fMoveDir = Vector2Add(fMoveDir, brakeDir);
+		}
 
+		DrawLine(m_pos.x, m_pos.y, m_pos.x + fMoveDir.x * 50, m_pos.y + fMoveDir.y * 50, GREEN);
 		return fMoveDir;
+
+	}
+
+	Vector2 GenerateFriction() {
+		Vector2 fric = Vector2Subtract(m_pos, target);
+		float dist = Vector2Length(fric);
+
+		fric = Vector2Normalize(fric);
+		fric = Vector2Scale(fric, (1 / dist) * 10);
+		return fric;
 
 	}
 

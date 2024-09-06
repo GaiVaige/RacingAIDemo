@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
 
             if (!drawingModeEnabled && flags.size() >= 3) {
                 if(r != nullptr) delete r;
-                r = new Racer(flags[0], 3, 150, 35, flags);
+                r = new Racer(flags[0], 3, 120, 35, flags);
             }
 
         }
